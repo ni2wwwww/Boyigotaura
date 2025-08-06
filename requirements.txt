@@ -1,0 +1,10 @@
+telebot
+requests
+bs4
+faker
+user_agent
+fake_useragent
+flagz
+pycountry
+PyJWT
+requests_toolbelt
