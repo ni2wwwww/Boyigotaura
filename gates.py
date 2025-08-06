@@ -3,7 +3,7 @@ import re
 import random
 import time
 import string,json
-import base64,user_agent,flagz
+import base64
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import pycountry,jwt
@@ -770,7 +770,8 @@ def sd(ccx):
 	cvc = ccx.split("|")[3]
 	if "20" in yy:#Mo3gza
 		yy = yy.split("20")[1]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	headers = {
 	    'user-agent': user,
 	}	
@@ -1538,7 +1539,8 @@ def br(ccx):
 	zip_code = numbers_and_zips[number]
 	letters_and_digits = string.ascii_letters + string.digits
 	number = ''.join(random.choices(string.digits, k=7))
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	def up():
 		r = requests.session()
 		headers={
@@ -1792,7 +1794,8 @@ def brr(ccx):
 	cvc = ccx.split("|")[3]
 	if "20" in yy:#Mo3gza
 		yy = yy.split("20")[1]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	headers = {
 	    'authority': 'payments.braintree-api.com',
 	    'accept': '*/*',
@@ -2538,7 +2541,8 @@ xelize%7C1714659196%7CGK2uQtKawDYRsGHylTYY7lS6lg8sF8QkiKpT2kMV8Le%7Cd2df2a557616
 		
 		return result
 def generate_fake_address():
-    user = user_agent.generate_user_agent()
+    ua = UserAgent()
+    user = ua.random
     headers = {'user-agent': user}
     r = requests.session()
     response = r.get('https://www.prepostseo.com/tool/fake-address-generator', headers=headers)
@@ -2593,78 +2597,11 @@ def generate_fake_address():
         'bank': extracted_data['bank'],
         'bcode': extracted_data['bcode']
     }
-data = generate_fake_address()
-name = data['name']
-email = data['email']
-phone = data['phone']
-postcode = data['postcode']
-street_address = data['street_address']
-city = data['city']
-country = data['country']
-state = data['state']
-company = data['company']
-gender = data['gender']
-credit_name = data['credit_name']
-first_name = data['first_name']
-last_name = data['last_name']
-credit_expiration_date = data['credit_expiration_date']
-account_no = data['account_no']
-username = data['username']
-password = data['password']
-ipv4 = data['ipv4']
-ipv6 = data['ipv6']
-mac_address = data['mac_address']
-semail = data['semail']
-user_agent_str = data['user_agent']
-job_title = data['job_title']
-com_email = data['com_email']
-salary = data['salary']
-iban = data['iban']
-dob = data['dob']
-age = data['age']
-height = data['height']
-weight = data['weight']
-hair = data['hair']
-eye = data['eye']
-bank = data['bank']
-bcode = data['bcode']
-print(name)
-print(email)
-print(phone)
-print(postcode)
-print(street_address)
-print(city)
-print(country)
-print(state)
-print(company)
-print(gender)
-print(credit_name)
-print(first_name)
-print(last_name)
-print(credit_expiration_date)
-print(account_no)
-print(username)
-print(password)
-print(ipv4)
-print(ipv6)
-print(mac_address)
-print(semail)
-print(user_agent_str)
-print(job_title)
-print(com_email)
-print(salary)
-print(iban)
-print(dob)
-print(age)
-print(height)
-print(weight)
-print(hair)
-print(eye)
-print(bank)
-print(bcode)
+
 
 def cvv(ccx):
-	import requests,user_agent,re,base64,json,random
+	import requests,re,base64,json,random
+	from fake_useragent import UserAgent
 	from bs4 import BeautifulSoup
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
@@ -2848,14 +2785,16 @@ hvysr%7C1715982772%7CphIJQOb83fsyPOmHUAnLQAsogvocVSNfQC0NNjiAGme%7C0fc492952069f
 				print(e)
 		return "RISK: Retry this BIN later."
 def auth(ccx):
-	import requests,user_agent,re,base64,json,random
+	import requests,re,base64,json,random
+	from fake_useragent import UserAgent
 	from bs4 import BeautifulSoup
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
 	mm = ccx.split("|")[1]
 	yy = ccx.split("|")[2]
 	cvc = ccx.split("|")[3]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	varps=['visaspam77@gmail.com','visaspam777@gmail.com']
 	def up(varp):
 		r = requests.session()
@@ -3065,14 +3004,16 @@ def auth(ccx):
 			up(varp)
 		return "RISK: Retry this BIN later." 
 def ccx(ccx):
-	import requests,user_agent,re,base64,json,random
+	import requests,re,base64,json,random
+	from fake_useragent import UserAgent
 	from bs4 import BeautifulSoup
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
 	mm = ccx.split("|")[1]
 	yy = ccx.split("|")[2]
 	cvc = ccx.split("|")[3]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	r = requests.session()
 	varps=['visaspam77@gmail.com','visaspam7x7@gmail.com']
 	def up(varp):
@@ -3247,8 +3188,10 @@ def pp(card):
 	
 	if "20" in yy:
 		yy = yy.split("20")[1]	
-	import requests, re, base64, random, string, user_agent, time
-	user = user_agent.generate_user_agent()
+	import requests, re, base64, random, string, time
+	from fake_useragent import UserAgent
+	ua = UserAgent()
+	user = ua.random
 	r = requests.session()
 	
 	from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -3570,7 +3513,8 @@ def gg(card):
 	else:
 		return "Your card couldn't be added"
 def sq(card):
-	import requests, re, time, uuid, json, secrets, string, random, user_agent, base64
+	import requests, re, time, uuid, json, secrets, string, random, base64
+	from fake_useragent import UserAgent
 	card = card.strip()
 	parts = re.split('[|:]', card)
 	n = parts[0]
@@ -3585,7 +3529,8 @@ def sq(card):
 	if len(yy) == 2:  
 		yy = '20' + yy  
 	yy = int(yy)
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	sess = str(uuid.uuid4())
 	random_variable = uuid.uuid4().hex
 
@@ -4652,7 +4597,8 @@ def stn(card):
 		else:
 			return '#Your card has been declined'
 def chk(card):
-	import requests, re, base64, random, string, user_agent, time
+	import requests, re, base64, random, string, time
+	from fake_useragent import UserAgent
 	card = card.strip()
 	parts = re.split('[|]', card)
 	n = parts[0]
@@ -4661,7 +4607,8 @@ def chk(card):
 	cvc = parts[3]
 	if "20" in yy:
 		yy = yy.split("20")[1]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	corr = 'bcgvcdc'
 	sess = 'vsgvxdf'
 	varps=['H1','H2','H3','H4','H5','H6','H7','H8','H9','H10']
@@ -4820,14 +4767,16 @@ def chk(card):
 			up(varp)
 		return "RISK: Retry this BIN later."
 def pro(ccx):
-	import requests,user_agent,re,base64,json,random
+	import requests,re,base64,json,random
+	from fake_useragent import UserAgent
 	from bs4 import BeautifulSoup
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
 	mm = ccx.split("|")[1]
 	yy = ccx.split("|")[2]
 	cvc = ccx.split("|")[3]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	r = requests.session()
 	varps=['voveb21610@wappol.com','dibew99495@wappol.com']
 	def up(varp):
@@ -5036,14 +4985,16 @@ def pro(ccx):
 		for varp in varps:
 			up(varp)
 def x(ccx):
-	import requests,user_agent,re,base64,json,random
+	import requests,re,base64,json,random
+	from fake_useragent import UserAgent
 	from bs4 import BeautifulSoup
 	ccx=ccx.strip()
 	n = ccx.split("|")[0]
 	mm = ccx.split("|")[1]
 	yy = ccx.split("|")[2]
 	cvc = ccx.split("|")[3]
-	user = user_agent.generate_user_agent()
+	ua = UserAgent()
+	user = ua.random
 	r = requests.session()
 	varps=['shyvanazombie@gmail.com','bs01t.k@gmail.com']
 	def up(varp):
@@ -5204,4 +5155,4 @@ def x(ccx):
 		for varp in varps:
 			up(varp)
 		return "RISK: Retry this BIN later."
-print(br('4094081007034951|10|24|633'))
+
