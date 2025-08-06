@@ -7,6 +7,114 @@ import base64
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import pycountry,jwt
+import os
+import pickle
+
+def safe_request(method, url, **kwargs):
+    """Safe wrapper for HTTP requests with proper error handling"""
+    try:
+        if method.lower() == 'get':
+            response = requests.get(url, timeout=30, **kwargs)
+        elif method.lower() == 'post':
+            response = requests.post(url, timeout=30, **kwargs)
+        else:
+            return None
+        return response
+    except requests.exceptions.RequestException as e:
+        print(f"Network error for {url}: {str(e)}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error for {url}: {str(e)}")
+        return None
+
+def safe_json_response(response, error_msg="Service temporarily unavailable"):
+    """Safely parse JSON response with error handling"""
+    if response is None:
+        return {"error": error_msg}
+    
+    try:
+        return response.json()
+    except:
+        return {"error": f"Invalid response from service (Status: {response.status_code})"}
+
+def load_gates_config():
+    """Load gates.json config with error handling"""
+    try:
+        if os.path.exists('gates.json'):
+            with open('gates.json', 'r') as f:
+                return json.load(f)
+        else:
+            return {}
+    except Exception as e:
+        print(f"Error loading gates.json: {e}")
+        return {}
+
+def save_gates_config(config):
+    """Save gates.json config with error handling"""
+    try:
+        with open('gates.json', 'w') as f:
+            json.dump(config, f, ensure_ascii=False, indent=4)
+        return True
+    except Exception as e:
+        print(f"Error saving gates.json: {e}")
+        return False
+
+def load_pickle_session(filename):
+    """Load pickle session with error handling"""
+    try:
+        if os.path.exists(filename):
+            with open(filename, 'rb') as f:
+                return pickle.load(f)
+        else:
+            return None
+    except Exception as e:
+        print(f"Error loading {filename}: {e}")
+        return None
+
+def save_pickle_session(filename, data):
+    """Save pickle session with error handling"""
+    try:
+        with open(filename, 'wb') as f:
+            pickle.dump(data, f)
+        return True
+    except Exception as e:
+        print(f"Error saving {filename}: {e}")
+        return False
+
+def gate_wrapper(func):
+    """Decorator to wrap gate functions with error handling"""
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except requests.exceptions.RequestException as e:
+            return f"Network service unavailable: {str(e)[:100]}"
+        except FileNotFoundError as e:
+            return f"Configuration file missing: {str(e)[:100]}"
+        except KeyError as e:
+            return f"Invalid API response format: {str(e)[:100]}"
+        except Exception as e:
+            return f"Service temporarily unavailable: {str(e)[:100]}"
+    return wrapper
+
+# Apply the wrapper to all existing functions
+def apply_gate_wrapper():
+    """Apply error handling wrapper to all gate functions"""
+    import sys
+    current_module = sys.modules[__name__]
+    
+    # List of gate function names
+    gate_functions = [
+        'vip', 'stc', 'pay', 'sa', 'xc', 'sf', 'chk', 'pro', 'x', 
+        'auth', 'b3', 'be', 'br', 'brr', 'ccx', 'cn', 'cvv', 
+        'gg', 'info', 'pp', 'pv', 'scc', 'sd', 'sff', 'sh', 
+        'sq', 'stn', 'sv', 'vbv', 'au'
+    ]
+    
+    for func_name in gate_functions:
+        if hasattr(current_module, func_name):
+            original_func = getattr(current_module, func_name)
+            wrapped_func = gate_wrapper(original_func)
+            setattr(current_module, func_name, wrapped_func)
 username = "uscgpwlo"
 password = "xnwshl3oo5c0"
 proxy = "64.137.96.74:6641"
@@ -5156,3 +5264,7 @@ def x(ccx):
 			up(varp)
 		return "RISK: Retry this BIN later."
 
+
+
+# Apply error handling wrapper to all gate functions when module is loaded
+apply_gate_wrapper()
